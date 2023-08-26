@@ -14,19 +14,17 @@ export const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSearchSubmit = async query => {
+    setSearchQuery(query);
     try {
       const response = await imagesApi.search(query);
       setImages(response.data.hits);
     } catch (error) {
       if (error.response) {
-        // Acest bloc va fi executat dacă s-a primit un răspuns cu eroare de la server
         console.error('Error Status:', error.response.status);
         console.error('Error Data:', error.response.data);
       } else if (error.request) {
-        // Acest bloc va fi executat dacă cererea a fost făcută, dar nu s-a primit niciun răspuns
         console.error('Error Request:', error.request);
       } else {
-        // Erori generale (e.g., setarea greșită a cererii)
         console.error('General Error:', error.message);
       }
     }
